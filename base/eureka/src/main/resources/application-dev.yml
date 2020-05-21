@@ -1,0 +1,16 @@
+#服务注册中心
+eureka:
+  instance:
+    #实例的主机名
+    prefer-ip-address: true
+  client:
+    #是否向服务注册中心注册自己
+    register-with-eureka: false
+    #是否检索服务
+    fetch-registry: false
+    #服务注册中心的配置内容，指定服务注册中心的位置
+    serviceUrl:
+      defaultZone: http://localhost:10100/eureka
+  #不对下线的服务进行保护，避免调用到已经下线的服务
+  server:
+    enable-self-preservation: false

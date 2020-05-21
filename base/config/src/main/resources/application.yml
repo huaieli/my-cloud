@@ -1,0 +1,42 @@
+#服务名端口号
+server:
+  port: 10200
+  connection-timeout: 3000
+  tomcat:
+    max-connections: 5000
+    max-threads: 5000
+    uri-encoding: UTF-8
+    accept-count: 5000
+
+#Spring相关配置
+spring:
+  application:
+    name: config
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/config
+          #search-locations: file:F:/workspace/hcp-cloud/config
+
+#服务注册中心
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${server.port}
+  client:
+    #注册url
+    service-url:
+      defaultZone: http://localhost:10100/eureka
+
+#开启所有监控中心接口
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS

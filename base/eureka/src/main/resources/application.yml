@@ -1,0 +1,17 @@
+#服务注册中心端口号
+server:
+  port: 10100
+  connection-timeout: 300000
+  tomcat:
+    max-connections: 3000
+    max-threads: 3000
+    uri-encoding: UTF-8
+    accept-count: 3000
+
+#服务名称
+spring:
+  application:
+    name: eureka
+  profiles:
+    active: dev
+  

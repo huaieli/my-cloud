@@ -1,0 +1,19 @@
+spring:
+  #配置中心
+  cloud:
+    config:
+      profile: dev
+      discovery:
+        service-id: config
+        enabled: true
+      name: zuul
+
+#服务注册中心
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${server.port}
+  client:
+    #注册url
+    service-url:
+      defaultZone: http://localhost:10100/eureka

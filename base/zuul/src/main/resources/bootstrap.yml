@@ -1,0 +1,53 @@
+#服务名端口号
+server:
+  port: 10301
+  connection-timeout: 30000
+  tomcat:
+    max-connections: 3000
+    max-threads: 3000
+    uri-encoding: UTF-8
+    accept-count: 3000
+
+#应用名称
+spring:
+  application:
+    name: zuul
+  #编码配置
+  http:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+  profiles:
+    active: dev
+
+zuul:
+  sensitive-headers:
+  add-host-header: true
+  retryable: true
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 50000
+
+ribbon:
+  okhttp:
+    enabled: true
+  http:
+    client:
+      enabled: false
+  ConnectTimeout: 3000
+  ReadTimeout: 10000
+  #retry
+  maxAutoRetries: 2
+  maxAutoRetriesNextServer: 0
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
