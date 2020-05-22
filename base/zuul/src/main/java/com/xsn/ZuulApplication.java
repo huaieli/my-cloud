@@ -9,6 +9,7 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 @EnableZuulProxy
 @EnableEurekaClient
 @EnableDiscoveryClient
+@SpringBootApplication(scanBasePackages = {"com.xsn"})
 public class ZuulApplication {
 
     public static void main(String[] args) {

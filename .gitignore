@@ -6,3 +6,6 @@ base/config/target/
 base/zuul/target/
 base/eureka/target/
 base/xxl/target/
+services/common/target/
+services/activemq-provider/target/
+services/activemq-consumer/target/
