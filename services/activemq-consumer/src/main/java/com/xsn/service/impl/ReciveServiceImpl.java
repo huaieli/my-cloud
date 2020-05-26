@@ -20,6 +20,17 @@ public class ReciveServiceImpl implements ReciveService {
     public void reciveQueueText(ActiveMQMessage message, Session session) {
         try {
             System.out.println("收到消息" + message);
+            // message.acknowledge();
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    // @JmsListener(destination = "default", containerFactory = "simpleJmsListenerContainerQueue")
+    public void reciveQueueText2(ActiveMQMessage message, Session session) {
+        try {
+            System.out.println("收到消息" + message);
 
         } catch (Exception e) {
             log.error(e.getMessage(), e);

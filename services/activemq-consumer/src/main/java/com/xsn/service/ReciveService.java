@@ -9,5 +9,7 @@ public interface ReciveService {
 
     void reciveQueueText(ActiveMQMessage message, Session session);
 
+    void reciveQueueText2(ActiveMQMessage message, Session session);
+
     void reciveTopicText(ActiveMQMessage message, Session session);
 }

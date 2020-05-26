@@ -7,11 +7,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.config.JmsListenerContainerFactory;
+import org.springframework.jms.config.SimpleJmsListenerContainerFactory;
 
 import javax.jms.ConnectionFactory;
 import javax.jms.Queue;
 import javax.jms.Session;
 import javax.jms.Topic;
+
+import static org.apache.activemq.ActiveMQSession.INDIVIDUAL_ACKNOWLEDGE;
 
 @Configuration
 @EnableJms
@@ -26,20 +29,49 @@ public class ActiveMQConfig {
     public JmsListenerContainerFactory<?> jmsListenerContainerTopic(ConnectionFactory activeMQConnectionFactory) {
         DefaultJmsListenerContainerFactory bean = new DefaultJmsListenerContainerFactory();
         bean.setPubSubDomain(true);
-        bean.setSessionAcknowledgeMode(Session.CLIENT_ACKNOWLEDGE);
+
+        // topic持久化
+        bean.setSubscriptionDurable(true);
+        bean.setClientId("A");
+
+        // 手动签收
+        bean.setSessionTransacted(false);
+        bean.setSessionAcknowledgeMode(INDIVIDUAL_ACKNOWLEDGE);
+
         bean.setConnectionFactory(activeMQConnectionFactory);
         return bean;
     }
 
     /**
-     * Queue模式的ListenerContainer
+     * Queue模式的DefaultJmsListenerContainerFactory
      * @param activeMQConnectionFactory
      * @return
      */
     @Bean
     public JmsListenerContainerFactory<?> jmsListenerContainerQueue(ConnectionFactory activeMQConnectionFactory) {
         DefaultJmsListenerContainerFactory bean = new DefaultJmsListenerContainerFactory();
-        bean.setSessionAcknowledgeMode(Session.CLIENT_ACKNOWLEDGE);
+
+        // 手动签收
+        bean.setSessionTransacted(false);
+        bean.setSessionAcknowledgeMode(INDIVIDUAL_ACKNOWLEDGE);
+
+        bean.setConnectionFactory(activeMQConnectionFactory);
+        return bean;
+    }
+
+    /**
+     * Queue模式的SimpleJmsListenerContainerFactory
+     * @param activeMQConnectionFactory
+     * @return
+     */
+    @Bean
+    public SimpleJmsListenerContainerFactory simpleJmsListenerContainerQueue(ConnectionFactory activeMQConnectionFactory) {
+        SimpleJmsListenerContainerFactory bean = new SimpleJmsListenerContainerFactory ();
+
+        // 手动签收
+        bean.setSessionTransacted(false);
+        bean.setSessionAcknowledgeMode(INDIVIDUAL_ACKNOWLEDGE);
+
         bean.setConnectionFactory(activeMQConnectionFactory);
         return bean;
     }
