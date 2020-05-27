@@ -1,5 +1,7 @@
 package com.xsn.config;
 
+import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.activemq.RedeliveryPolicy;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.activemq.command.ActiveMQTopic;
 import org.springframework.context.annotation.Bean;
@@ -20,13 +22,31 @@ import static org.apache.activemq.ActiveMQSession.INDIVIDUAL_ACKNOWLEDGE;
 @EnableJms
 public class ActiveMQConfig {
 
+    @Bean
+    public RedeliveryPolicy redeliveryPolicy() {
+        RedeliveryPolicy  redeliveryPolicy=   new RedeliveryPolicy();
+        //是否在每次尝试重新发送失败后,增长这个等待时间
+        redeliveryPolicy.setUseExponentialBackOff(true);
+        //重发次数,默认为6次   这里设置为5次
+        redeliveryPolicy.setMaximumRedeliveries(5);
+        //重发时间间隔,默认为1000ms
+        redeliveryPolicy.setInitialRedeliveryDelay(500);
+        //第一次失败后重新发送之前等待500毫秒,第二次失败再等待500 * 2毫秒,这里的2就是value
+        redeliveryPolicy.setBackOffMultiplier(2);
+        //是否避免消息碰撞
+        redeliveryPolicy.setUseCollisionAvoidance(false);
+        //设置重发最大拖延时间-1 表示没有拖延只有UseExponentialBackOff(true)为true时生效
+        redeliveryPolicy.setMaximumRedeliveryDelay(-1);
+        return redeliveryPolicy;
+    }
+
     /**
      * topic模式的ListenerContainer
      * @param activeMQConnectionFactory
      * @return
      */
     @Bean
-    public JmsListenerContainerFactory<?> jmsListenerContainerTopic(ConnectionFactory activeMQConnectionFactory) {
+    public JmsListenerContainerFactory<?> jmsListenerContainerTopic(ActiveMQConnectionFactory activeMQConnectionFactory) {
         DefaultJmsListenerContainerFactory bean = new DefaultJmsListenerContainerFactory();
         bean.setPubSubDomain(true);
 
@@ -38,6 +58,7 @@ public class ActiveMQConfig {
         bean.setSessionTransacted(false);
         bean.setSessionAcknowledgeMode(INDIVIDUAL_ACKNOWLEDGE);
 
+        activeMQConnectionFactory.setRedeliveryPolicy(redeliveryPolicy());
         bean.setConnectionFactory(activeMQConnectionFactory);
         return bean;
     }
@@ -48,13 +69,14 @@ public class ActiveMQConfig {
      * @return
      */
     @Bean
-    public JmsListenerContainerFactory<?> jmsListenerContainerQueue(ConnectionFactory activeMQConnectionFactory) {
+    public JmsListenerContainerFactory<?> jmsListenerContainerQueue(ActiveMQConnectionFactory activeMQConnectionFactory) {
         DefaultJmsListenerContainerFactory bean = new DefaultJmsListenerContainerFactory();
 
         // 手动签收
         bean.setSessionTransacted(false);
         bean.setSessionAcknowledgeMode(INDIVIDUAL_ACKNOWLEDGE);
 
+        activeMQConnectionFactory.setRedeliveryPolicy(redeliveryPolicy());
         bean.setConnectionFactory(activeMQConnectionFactory);
         return bean;
     }

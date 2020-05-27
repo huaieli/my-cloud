@@ -1,5 +1,6 @@
 package com.xsn.config;
 
+import org.apache.activemq.RedeliveryPolicy;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.activemq.command.ActiveMQTopic;
 import org.springframework.context.annotation.Bean;

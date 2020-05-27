@@ -18,6 +18,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <classifier>exec</classifier>
+                    <mainClass>com.xsn.dto.CodeMap</mainClass>
                 </configuration>
             </plugin>
         </plugins>

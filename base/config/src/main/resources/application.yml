@@ -1,6 +1,6 @@
 #服务名端口号
 server:
-  port: 10200
+  port: 10201
 
 #Spring相关配置
 spring:

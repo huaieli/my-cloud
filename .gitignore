@@ -9,3 +9,4 @@ base/xxl/target/
 services/common/target/
 services/activemq-provider/target/
 services/activemq-consumer/target/
+services/activemq-provider/docs/

@@ -11,5 +11,7 @@ public interface ReciveService {
 
     void reciveQueueText2(ActiveMQMessage message, Session session);
 
+    void reciveDLQDefault(ActiveMQMessage message, Session session);
+
     void reciveTopicText(ActiveMQMessage message, Session session);
 }
