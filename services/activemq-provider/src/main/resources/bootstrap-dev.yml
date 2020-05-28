@@ -13,6 +13,6 @@ spring:
       discovery:
         service-id: config
         enabled: true
-      name: activemq-provider, mq
+      name: activemq-provider, mq, xxl
 
 
