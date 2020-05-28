@@ -1,6 +1,6 @@
 #服务名端口号
 server:
-  port: 10301
+  port: 10302
   connection-timeout: 30000
   tomcat:
     max-connections: 3000
