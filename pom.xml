@@ -7,7 +7,7 @@
     <groupId>com.xsn</groupId>
     <artifactId>my-cloud</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <modules>
         <module>base</module>
         <module>services</module>
@@ -137,6 +137,19 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <skip>true</skip>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <configuration>
+                    <dockerHost>http://10.18.32.215:2375</dockerHost>
+                    <imageName>${imageName}</imageName>
+                    <dockerDirectory>${basedir}</dockerDirectory>
+                    <serverId>my-docker-registry</serverId>
+                    <pushImage>true</pushImage>
                 </configuration>
             </plugin>
         </plugins>

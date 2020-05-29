@@ -1,0 +1,17 @@
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://my-eureka1:10101/eureka,http://my-eureka2:10101/eureka
+
+spring:
+  cloud:
+    config:
+      profile: docker
+      discovery:
+        service-id: config
+        enabled: true
+      name: activemq-provider, mq, xxl
+
+

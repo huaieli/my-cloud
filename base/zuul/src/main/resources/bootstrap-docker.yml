@@ -1,0 +1,18 @@
+spring:
+  #配置中心
+  cloud:
+    config:
+      profile: docker
+      discovery:
+        service-id: config
+        enabled: true
+      name: zuul
+
+#服务注册中心
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    #注册url
+    service-url:
+      defaultZone: http://my-eureka1:10101/eureka,http://my-eureka2:10101/eureka
