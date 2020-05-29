@@ -10,7 +10,7 @@ eureka:
     fetch-registry: false
     #服务注册中心的配置内容，指定服务注册中心的位置
     serviceUrl:
-      defaultZone: http://localhost:10102/eureka
+      defaultZone: http://localhost:10101/eureka
   #不对下线的服务进行保护，避免调用到已经下线的服务
   server:
     enable-self-preservation: false

@@ -2,7 +2,7 @@ FROM openjdk:8-jre-slim
 
 MAINTAINER xsn
 
-ENV PARAMS = "--spring.profiles.active=dev"
+ENV PARAMS = "--spring.profiles.active=docker"
 
 ADD target/eureka-*.jar /app.jar
 
