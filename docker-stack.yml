@@ -1,7 +1,6 @@
 version: "3"
 services:
-  eureka1:
-    container_name: my-eureka1
+  my-eureka1:
     ports:
       - "10101:10101"
     deploy:
@@ -12,8 +11,7 @@ services:
         condition: on-failure
     image: shuiniudocker/my-eureka:1.0
 
-  eureka2:
-    container_name: my-eureka2
+  my-eureka2:
     ports:
       - "10102:10101"
     deploy:
@@ -24,7 +22,7 @@ services:
         condition: on-failure
     image: shuiniudocker/my-eureka:1.0
 
-  config:
+  my-config:
     ports:
       - "10201"
     deploy:
@@ -35,10 +33,10 @@ services:
         condition: on-failure
     image: shuiniudocker/my-config:1.0
     depends_on:
-      - eureka1
-      - eureka2
+      - my-eureka1
+      - my-eureka2
 
-  zuul:
+  my-zuul:
     ports:
       - "10302"
     deploy:
@@ -49,7 +47,21 @@ services:
         condition: on-failure
     image: shuiniudocker/my-zuul:1.0
     depends_on:
-      - config
+      - my-config
+
+  my-xxl:
+    ports:
+      - "10310"
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+      restart_policy:
+        condition: on-failure
+    image: shuiniudocker/my-xxl:1.0
+    depends_on:
+      - my-eureka1
+      - my-eureka2
 
   activemq-provider:
     deploy:
@@ -60,7 +72,8 @@ services:
         condition: on-failure
     image: shuiniudocker/activemq-provider:1.0
     depends_on:
-      - config
+      - my-config
+      - my-xxl
 
   activemq-consumer:
     deploy:
@@ -71,7 +84,7 @@ services:
         condition: on-failure
     image: shuiniudocker/activemq-consumer:1.0
     depends_on:
-    - config
+      - my-config
 
   portainer:
     image: portainer/portainer
@@ -96,5 +109,5 @@ services:
 networks:
   default:
     external:
-      name: hcp-cloud-swarm
+      name: test-swarm
     

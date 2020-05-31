@@ -19,7 +19,7 @@ spring:
 eureka:
   instance:
     prefer-ip-address: true
-    instance-id: ${spring.application.name}:${server.port}
+    instance-id: ${spring.cloud.client.hostname}:${random.int}
   client:
     #注册url
     service-url:

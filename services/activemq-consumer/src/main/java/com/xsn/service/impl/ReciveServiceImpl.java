@@ -20,17 +20,17 @@ public class ReciveServiceImpl implements ReciveService {
     @JmsListener(destination = "default", containerFactory = "jmsListenerContainerQueue")
     public void reciveQueueText(ActiveMQMessage message, Session session) {
         try {
-            System.out.println("收到消息" + message);
-            // message.acknowledge();
+            System.out.println("收到Queue消息" + message);
+            message.acknowledge();
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
 
-        try {
+        /*try {
             session.recover();
         } catch (JMSException e1) {
             e1.printStackTrace();
-        }
+        }*/
     }
 
     @Override
@@ -59,16 +59,16 @@ public class ReciveServiceImpl implements ReciveService {
     @JmsListener(destination = "default", containerFactory = "jmsListenerContainerTopic")
     public void reciveTopicText(ActiveMQMessage message, Session session) {
         try {
-            System.out.println("收到消息" + message);
-            // message.acknowledge();
+            System.out.println("收到Topic消息" + message);
+            message.acknowledge();
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
 
-        try {
+        /*try {
             session.recover();
         } catch (JMSException e1) {
             e1.printStackTrace();
-        }
+        }*/
     }
 }

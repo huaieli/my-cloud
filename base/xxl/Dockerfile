@@ -2,7 +2,7 @@ FROM openjdk:8-jre-slim
 
 MAINTAINER xsn
 
-ENV PARAMS = "--server.port=0 --spring.profiles.active=docker"
+ENV PARAMS = "--spring.profiles.active=docker"
 
 ADD target/xxl-*.jar /app.jar
 
