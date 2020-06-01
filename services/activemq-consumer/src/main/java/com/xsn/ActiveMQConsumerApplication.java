@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication(scanBasePackages = {"com.xsn"})
 @EnableDiscoveryClient
-@EnableFeignClients
 public class ActiveMQConsumerApplication {
 
     @Bean

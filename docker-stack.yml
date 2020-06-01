@@ -65,7 +65,7 @@ services:
 
   activemq-provider:
     deploy:
-      replicas: 3
+      replicas: 2
       placement:
         constraints: [node.role == worker]
       restart_policy:
@@ -77,7 +77,7 @@ services:
 
   activemq-consumer:
     deploy:
-      replicas: 3
+      replicas: 2
       placement:
         constraints: [node.role == worker]
       restart_policy:

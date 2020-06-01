@@ -1,45 +1,11 @@
 server:
   port: 10501
-  tomcat:
-    uri-encoding: UTF-8
 
 spring:
   application:
     name: activemq-consumer
   profiles:
     active: dev
-
-feign:
-  okhttp:
-    enabled: true
-  httpclient:
-    enabled: false
-  #gzip
-  compression:
-    request:
-      enabled: true
-    response:
-      enabled: true
-
-hystrix:
-  command:
-    default:
-      execution:
-        isolation:
-          thread:
-            timeoutInMilliseconds: 50000
-
-ribbon:
-  okhttp:
-    enabled: true
-  http:
-    client:
-      enabled: false
-  ConnectTimeout: 3000
-  ReadTimeout: 10000
-  #retry
-  maxAutoRetries: 2
-  maxAutoRetriesNextServer: 0
 
 logging:
   level:

@@ -16,6 +16,12 @@
     </properties>
 
     <dependencies>
+        <!-- Spring Boot相关依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
         <!-- 整合eureka客户端 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

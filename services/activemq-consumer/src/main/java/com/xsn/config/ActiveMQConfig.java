@@ -4,6 +4,7 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.RedeliveryPolicy;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.activemq.command.ActiveMQTopic;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.annotation.EnableJms;
@@ -21,6 +22,9 @@ import static org.apache.activemq.ActiveMQSession.INDIVIDUAL_ACKNOWLEDGE;
 @Configuration
 @EnableJms
 public class ActiveMQConfig {
+
+    @Autowired
+    private Consumer consumer;
 
     @Bean
     public RedeliveryPolicy redeliveryPolicy() {
@@ -52,7 +56,7 @@ public class ActiveMQConfig {
 
         // topic持久化
         bean.setSubscriptionDurable(true);
-        bean.setClientId("A");
+        bean.setClientId(consumer.getClientId());
 
         // 手动签收
         bean.setSessionTransacted(false);
