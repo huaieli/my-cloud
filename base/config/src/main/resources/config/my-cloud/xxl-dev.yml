@@ -1,0 +1,12 @@
+xxl:
+  job:
+    admin:
+      addresses: http://localhost:10302/xxl
+    accessToken:
+    executor:
+      appname: test
+      address:
+      ip:
+      port: 9999
+      logpath:
+      logretentiondays: 3

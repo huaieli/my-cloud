@@ -1,0 +1,23 @@
+zuul:
+  routes:
+    static:
+      path: /static/**
+      serviceId: http://my-xxl:10310/static/
+    chartInfo:
+      path: /chartInfo/**
+      serviceId: http://my-xxl:10310/chartInfo/
+    jobinfo:
+      path: /jobinfo/**
+      serviceId: http://my-xxl:10310/jobinfo/
+    joblog:
+      path: /joblog/**
+      serviceId: http://my-xxl:10310/joblog/
+    jobgroup:
+      path: /jobgroup/**
+      serviceId: http://my-xxl:10310/jobgroup/
+    user:
+      path: /user/**
+      serviceId: http://my-xxl:10310/user/
+    help:
+      path: /help/**
+      serviceId: http://my-xxl:10310/help/

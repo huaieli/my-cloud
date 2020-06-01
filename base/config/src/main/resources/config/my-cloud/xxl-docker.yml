@@ -1,0 +1,12 @@
+xxl:
+  job:
+    admin:
+      addresses: http://my-xxl:10310
+    accessToken:
+    executor:
+      appname: default
+      address:
+      ip:
+      port: 9999
+      logpath:
+      logretentiondays: 3

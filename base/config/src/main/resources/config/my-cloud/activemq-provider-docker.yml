@@ -1,0 +1,10 @@
+com:
+  xsn:
+    activemq:
+      swagger:
+        scan: com.xsn.controller
+        title: activemq整合V1.0
+        description: activemq整合V1.0
+        termsOfServiceUrl: http://xsn.com
+        version: V1.0
+        

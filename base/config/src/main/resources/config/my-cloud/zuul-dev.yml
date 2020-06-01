@@ -2,22 +2,22 @@ zuul:
   routes:
     static:
       path: /static/**
-      serviceId: http://localhost:10302/static/
+      serviceId: http://localhost:10310/static/
     chartInfo:
       path: /chartInfo/**
-      serviceId: http://localhost:10302/chartInfo/
+      serviceId: http://localhost:10310/chartInfo/
     jobinfo:
       path: /jobinfo/**
-      serviceId: http://localhost:10302/jobinfo/
+      serviceId: http://localhost:10310/jobinfo/
     joblog:
       path: /joblog/**
-      serviceId: http://localhost:10302/joblog/
+      serviceId: http://localhost:10310/joblog/
     jobgroup:
       path: /jobgroup/**
-      serviceId: http://localhost:10302/jobgroup/
+      serviceId: http://localhost:10310/jobgroup/
     user:
       path: /user/**
-      serviceId: http://localhost:10302/user/
+      serviceId: http://localhost:10310/user/
     help:
       path: /help/**
-      serviceId: http://localhost:10302/help/
+      serviceId: http://localhost:10310/help/
