@@ -4,7 +4,7 @@ eureka:
     instance-id: ${spring.cloud.client.hostname}:${random.int}
   client:
     service-url:
-      defaultZone: http://my-eureka1:10101/eureka,http://my-eureka2:10101/eureka
+      defaultZone: ${EUREKA_SERVER_LIST}
 
 spring:
   cloud:
@@ -14,5 +14,8 @@ spring:
         service-id: config
         enabled: true
       name: activemq-provider, mq, xxl
+
+    inetutils:
+      preferred-networks: 192.168.0
 
 

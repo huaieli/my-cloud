@@ -15,10 +15,14 @@ spring:
       connection-timeout: 1000
       connection-test-query: SELECT 1
 
+  cloud:
+    inetutils:
+      preferred-networks: 192.168.0
+
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://my-eureka1:10101/eureka,http://my-eureka2:10101/eureka
+      defaultZone: ${EUREKA_SERVER_LIST}
   instance:
     prefer-ip-address: true
     instance-id: ${spring.cloud.client.hostname}:${random.int}

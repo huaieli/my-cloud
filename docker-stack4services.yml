@@ -1,0 +1,42 @@
+version: "3"
+services:
+  my-zuul:
+    ports:
+      - "10302"
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == worker]
+      restart_policy:
+        condition: on-failure
+    image: shuiniudocker/my-zuul:1.0
+    environment:
+      - "EUREKA_SERVER_LIST=http://my-eureka1:10101/eureka,http://my-eureka2:10101/eureka"
+
+  activemq-provider:
+    deploy:
+      replicas: 2
+      placement:
+        constraints: [node.role == worker]
+      restart_policy:
+        condition: on-failure
+    image: shuiniudocker/activemq-provider:1.0
+    environment:
+      - "EUREKA_SERVER_LIST=http://my-eureka1:10101/eureka,http://my-eureka2:10101/eureka"
+
+  activemq-consumer:
+    deploy:
+      replicas: 2
+      placement:
+        constraints: [node.role == worker]
+      restart_policy:
+        condition: on-failure
+    image: shuiniudocker/activemq-consumer:1.0
+    environment:
+      - "EUREKA_SERVER_LIST=http://my-eureka1:10101/eureka,http://my-eureka2:10101/eureka"
+
+networks:
+  default:
+    external:
+      name: test-swarm
+    

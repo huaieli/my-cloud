@@ -2,7 +2,7 @@ version: "3"
 services:
   my-eureka1:
     ports:
-      - "10101:10101"
+      - "10101"
     deploy:
       replicas: 1
       placement:
@@ -10,10 +10,12 @@ services:
       restart_policy:
         condition: on-failure
     image: shuiniudocker/my-eureka:1.0
+    environment:
+      - "EUREKA_SERVER=my-eureka2"
 
   my-eureka2:
     ports:
-      - "10102:10101"
+      - "10101"
     deploy:
       replicas: 1
       placement:
@@ -21,6 +23,8 @@ services:
       restart_policy:
         condition: on-failure
     image: shuiniudocker/my-eureka:1.0
+    environment:
+      - "EUREKA_SERVER=my-eureka1"
 
   my-config:
     ports:
@@ -36,18 +40,21 @@ services:
       - my-eureka1
       - my-eureka2
 
-  my-zuul:
+  mysql:
     ports:
-      - "10302"
+      - "3306:3306"
     deploy:
       replicas: 1
       placement:
-        constraints: [node.role == worker]
+        constraints: [node.role == manager]
       restart_policy:
         condition: on-failure
-    image: shuiniudocker/my-zuul:1.0
-    depends_on:
-      - my-config
+    image: mysql:5.5
+    volumes:
+      - "/home/docker/volumes/mysql/logs:/logs"
+      - "/home/docker/volumes/mysql/data:/var/lib/mysql"
+    environment:
+      - "MYSQL_ROOT_PASSWORD=123456"
 
   my-xxl:
     ports:
@@ -59,32 +66,26 @@ services:
       restart_policy:
         condition: on-failure
     image: shuiniudocker/my-xxl:1.0
+    environment:
+      - "EUREKA_SERVER_LIST=http://my-eureka1:10101/eureka,http://my-eureka2:10101/eureka"
     depends_on:
       - my-eureka1
       - my-eureka2
+      - mysql
 
-  activemq-provider:
+  activemq:
+    ports:
+      - "8161:8161"
+      - "61616:61616"
     deploy:
-      replicas: 2
+      replicas: 1
       placement:
-        constraints: [node.role == worker]
+        constraints: [node.role == manager]
       restart_policy:
         condition: on-failure
-    image: shuiniudocker/activemq-provider:1.0
-    depends_on:
-      - my-config
-      - my-xxl
-
-  activemq-consumer:
-    deploy:
-      replicas: 2
-      placement:
-        constraints: [node.role == worker]
-      restart_policy:
-        condition: on-failure
-    image: shuiniudocker/activemq-consumer:1.0
-    depends_on:
-      - my-config
+    image: webcenter/activemq
+    volumes:
+      - "/home/docker/volumes/activemq:/data/activemq/conf"
 
   portainer:
     image: portainer/portainer

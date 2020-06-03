@@ -8,6 +8,9 @@ spring:
         enabled: true
       name: zuul
 
+    inetutils:
+      preferred-networks: 192.168.0
+
 #服务注册中心
 eureka:
   instance:
@@ -16,4 +19,4 @@ eureka:
   client:
     #注册url
     service-url:
-      defaultZone: http://my-eureka1:10101/eureka,http://my-eureka2:10101/eureka
+      defaultZone: ${EUREKA_SERVER_LIST}

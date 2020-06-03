@@ -5,6 +5,11 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://my-eureka1:10101/eureka,http://my-eureka2:10101/eureka
+      defaultZone: http://${EUREKA_SERVER}:10101/eureka
   server:
     enable-self-preservation: false
+
+spring:
+  cloud:
+    inetutils:
+      preferred-networks: 192.168.0
