@@ -150,6 +150,7 @@
                     <dockerDirectory>${basedir}</dockerDirectory>
                     <serverId>my-docker-registry</serverId>
                     <pushImage>true</pushImage>
+                    <noCache>true</noCache>
                 </configuration>
             </plugin>
         </plugins>
