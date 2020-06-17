@@ -26,8 +26,4 @@ public class CodeMap {
         STATE_CODE_LABEL.put(PARAM_CHECK_ERROR, "参数异常");
         STATE_CODE_LABEL.put(ALREADY_EXIST_DATA, "数据已存在");
     }
-
-    public static void main(String[] args) {
-
-    }
 }

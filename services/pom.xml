@@ -15,6 +15,7 @@
         <module>activemq-provider</module>
         <module>common</module>
         <module>activemq-consumer</module>
+        <module>mysql-rw</module>
     </modules>
 
     <properties>

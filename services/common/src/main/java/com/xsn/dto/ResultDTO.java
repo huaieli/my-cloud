@@ -1,8 +1,10 @@
 package com.xsn.dto;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class ResultDTO<T> {
     private Integer code;
     private String message;
@@ -33,5 +35,9 @@ public class ResultDTO<T> {
 
     public boolean isSuccess() {
         return CodeMap.STATE_CODE_SUCCESS.equals(this.code);
+    }
+
+    public static <T> ResultDTO<T> success(T data) {
+        return new ResultDTO<T>(CodeMap.STATE_CODE_SUCCESS, data);
     }
 }

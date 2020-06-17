@@ -6,7 +6,7 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
 @Data
-@ConfigurationProperties(prefix = "com.xsn.activemq.swagger")
+@ConfigurationProperties(prefix = "com.xsn.swagger")
 @RefreshScope
 @Component
 public class SwaggerProperties {

@@ -7,7 +7,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 
-@SpringBootApplication(scanBasePackages = {"com.xsn"})
+@SpringBootApplication
 @EnableDiscoveryClient
 public class ActiveMQConsumerApplication {
 
