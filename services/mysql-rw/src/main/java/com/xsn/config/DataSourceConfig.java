@@ -1,5 +1,6 @@
 package com.xsn.config;
 
+import com.alibaba.druid.filter.config.ConfigTools;
 import com.alibaba.druid.pool.DruidDataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -52,5 +53,10 @@ public class DataSourceConfig {
         routeDataSource.setTargetDataSources(dataSources);
 
         return routeDataSource;
+    }
+
+    public static void main(String[] args) throws Exception {
+        System.out.println(ConfigTools.encrypt("hcp"));
+        System.out.println(ConfigTools.encrypt("Hcp@123_2020"));
     }
 }

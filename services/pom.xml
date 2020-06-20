@@ -16,6 +16,7 @@
         <module>common</module>
         <module>activemq-consumer</module>
         <module>mysql-rw</module>
+        <module>resttemplate</module>
     </modules>
 
     <properties>
