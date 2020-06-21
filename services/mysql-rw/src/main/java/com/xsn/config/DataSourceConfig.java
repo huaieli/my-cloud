@@ -54,9 +54,4 @@ public class DataSourceConfig {
 
         return routeDataSource;
     }
-
-    public static void main(String[] args) throws Exception {
-        System.out.println(ConfigTools.encrypt("hcp"));
-        System.out.println(ConfigTools.encrypt("Hcp@123_2020"));
-    }
 }
