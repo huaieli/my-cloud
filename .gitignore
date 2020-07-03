@@ -12,3 +12,5 @@ services/activemq-consumer/target/
 services/activemq-provider/docs/
 services/mysql-rw/target/
 services/resttemplate/target/
+services/rabbitmq-consumer/target/
+services/rabbitmq-provider/target/

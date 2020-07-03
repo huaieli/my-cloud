@@ -1,9 +1,9 @@
 server:
-  port: 10501
+  port: 10612
 
 spring:
   application:
-    name: activemq-consumer
+    name: rabbitmq-consumer
   profiles:
     active: dev
 

@@ -16,4 +16,4 @@ eureka:
   client:
     #注册url
     service-url:
-      defaultZone: http://localhost:10100/eureka
+      defaultZone: http://localhost:10101/eureka

@@ -7,12 +7,16 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.xsn"})
 @EnableDiscoveryClient
-public class ActiveMQConsumerApplication {
-
-    public static void main(String[] args) {
-        SpringApplication.run(ActiveMQConsumerApplication.class, args);
+@EnableFeignClients
+public class RabbitMqProviderApplication {
+    @Bean
+    Logger.Level feignLoggerLevel() {
+        return Logger.Level.FULL;
     }
 
+    public static void main(String[] args) {
+        SpringApplication.run(RabbitMqProviderApplication.class, args);
+    }
 }

@@ -40,4 +40,8 @@ public class ResultDTO<T> {
     public static <T> ResultDTO<T> success(T data) {
         return new ResultDTO<T>(CodeMap.STATE_CODE_SUCCESS, data);
     }
+
+    public static <T> ResultDTO<T> success() {
+        return success(null);
+    }
 }
