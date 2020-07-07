@@ -15,6 +15,10 @@ spring:
         enabled: true
       name: rabbitmq-provider, swagger, xxl, rabbitmq
 
+  rabbitmq:
+    publisher-confirms: true
+    publisher-returns: true
+
 
 
 

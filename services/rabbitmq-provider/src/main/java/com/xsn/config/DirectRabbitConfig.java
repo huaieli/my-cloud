@@ -1,11 +1,14 @@
 package com.xsn.config;
 
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.DirectExchange;
-import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.*;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.rabbit.support.CorrelationData;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.HashMap;
 
 @Configuration
 public class DirectRabbitConfig {
@@ -18,13 +21,31 @@ public class DirectRabbitConfig {
          * exclusive:默认也是false，只能被当前创建的连接使用，而且当连接关闭后队列即被删除。此参考优先级高于durable
          * autoDelete:是否自动删除，当没有生产者或者消费者使用此队列，该队列会自动删除。
          */
-        return new Queue("test", true, false, false);
+        return new Queue("test", true, false, false
+                /**
+                 * 当消息
+                 * 1）ttl过期
+                 * 2）被手动丢弃（basicNack, basicReject)
+                 * 3)队列满
+                 */
+                , new HashMap<String, Object>(2) {
+                    {
+                        put("x-dead-letter-exchange", "dlxExchange");
+                        put("x-dead-letter-routing-key", "dlxRoutingKey");
+                    }
+                });
     }
 
     @Bean
     public DirectExchange testDirectExchange() {
 
         return new DirectExchange("testDirectExchange", true, false);
+    }
+
+    @Bean
+    public DirectExchange noBindingExchange() {
+
+        return new DirectExchange("noBindingExchange", true, false);
     }
 
     @Bean
