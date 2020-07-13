@@ -19,6 +19,7 @@
         <module>resttemplate</module>
         <module>rabbitmq-provider</module>
         <module>rabbitmq-consumer</module>
+        <module>redis-app</module>
     </modules>
 
     <properties>

@@ -1,0 +1,21 @@
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.hostname}:${random.int}
+  client:
+    service-url:
+      defaultZone: ${EUREKA_SERVER_LIST}
+
+spring:
+  cloud:
+    config:
+      profile: docker
+      discovery:
+        service-id: config
+        enabled: true
+      name: redis, redis-app, swagger
+
+    inetutils:
+      preferred-networks: 192.168.0
+
+

@@ -14,3 +14,4 @@ services/mysql-rw/target/
 services/resttemplate/target/
 services/rabbitmq-consumer/target/
 services/rabbitmq-provider/target/
+services/redis-app/target/

@@ -1,0 +1,16 @@
+server:
+  port: 10711
+  tomcat:
+    uri-encoding: UTF-8
+
+spring:
+  application:
+    name: redis-app
+  profiles:
+    active: dev
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
