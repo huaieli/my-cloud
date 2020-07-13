@@ -1,7 +1,5 @@
 package com.xsn.service.impl;
 
-import com.xsn.dto.CodeMap;
-import com.xsn.dto.ResultDTO;
 import com.xsn.service.ReciveService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.activemq.command.ActiveMQMessage;
@@ -10,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import javax.jms.JMSException;
 import javax.jms.Session;
-import java.util.concurrent.ExecutionException;
 
 @Service
 @Slf4j

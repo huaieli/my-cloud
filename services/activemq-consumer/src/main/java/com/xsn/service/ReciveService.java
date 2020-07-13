@@ -1,6 +1,5 @@
 package com.xsn.service;
 
-import com.xsn.dto.ResultDTO;
 import org.apache.activemq.command.ActiveMQMessage;
 
 import javax.jms.Session;

@@ -1,7 +1,6 @@
 package com.xsn.controller;
 
 import com.xsn.dto.ResultDTO;
-import com.xsn.entity.TestUser;
 import com.xsn.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
