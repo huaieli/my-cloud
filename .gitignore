@@ -10,8 +10,8 @@ services/common/target/
 services/activemq-provider/target/
 services/activemq-consumer/target/
 services/activemq-provider/docs/
-services/mysql-rw/target/
 services/resttemplate/target/
 services/rabbitmq-consumer/target/
 services/rabbitmq-provider/target/
 services/redis-app/target/
+services/mysql-rw-tx/target/

@@ -15,7 +15,7 @@
         <module>activemq-provider</module>
         <module>common</module>
         <module>activemq-consumer</module>
-        <module>mysql-rw</module>
+        <module>mysql-rw-tx</module>
         <module>resttemplate</module>
         <module>rabbitmq-provider</module>
         <module>rabbitmq-consumer</module>
@@ -65,5 +65,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
     </dependencies>
 </project>

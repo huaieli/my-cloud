@@ -9,6 +9,7 @@ import com.xsn.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Slf4j
@@ -18,6 +19,7 @@ public class UserServiceImpl implements UserService {
     private TestUserMapper testUserMapper;
 
     @Override
+    @Transactional
     public ResultDTO addUser(String name, int age) {
 
         int i = 0;
