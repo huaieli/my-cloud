@@ -154,25 +154,25 @@ public class TxHandler {
              * 都有事务，但是内部抛出的异常被外部处理
              * 事务不生效，数据被插入
              */
-            // noCatchWithTx();
+            noCatchWithTx();
 
             /**
              * 外部事务切入，但因为内部异常抛出后被外部处理
              * 事务不生效，数据被插入
              */
-            noCatchWithoutTx();
+            // noCatchWithoutTx();
 
             /**
              * 都有事务都处理了异常
              * 事务肯定失效
              */
-            catchWithTx();
+            // catchWithTx();
 
             /**
-             * 都有事务（外部事务切入内部）都处理了异常
+             * 都外部事务切入内部、都处理了异常
              * 事务肯定失效
              */
-            catchWithoutTx();
+            // catchWithoutTx();
 
         } catch (Exception e) {
 
@@ -208,10 +208,9 @@ public class TxHandler {
     public void noTxWithCatchOutter() {
         try {
             /**
-             * 内部方法有事务且未捕获，
-             * 外部方法虽然无事务但并没有入侵内部方法
-             * 内部事务依然生效
-             * 因此外方法是否catch已经不重要了
+             * 与之前的场景一样，外部方法无事务，
+             * 事务是否生效取决于内部方法
+             * 因此外方法是否catch无关紧要
              */
         } catch (Exception e) {
 
@@ -288,6 +287,33 @@ public class TxHandler {
             // throw new RuntimeException();
             // TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
         }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////
+
+    @Transactional
+    public void outter() {
+
+        testUserMapper.insertSelective(
+                TestUser.builder()
+                        .id(0)
+                        .name("outter")
+                        .age(0)
+                        .build()
+        );
+
+        int i = 1 / 0;
+    }
+
+    public void inner() {
+
+        testUserMapper.insertSelective(
+                TestUser.builder()
+                        .id(5)
+                        .name("inner")
+                        .age(5)
+                        .build()
+        );
     }
 
 }

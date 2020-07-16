@@ -9,16 +9,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-@SpringBootTest(classes = MysqlRWApplication.class)
-@RunWith(SpringRunner.class)
-@ActiveProfiles("junit")
-public class TxServiceTest {
+public class TxServiceTest extends BaseTest {
 
     @Autowired
     private TxHandler txHandler;
 
     @Test
     public void test1() {
-        txHandler.withTxwithCatchOutter();
+        txHandler.withTxwithCatchInner();
     }
 }

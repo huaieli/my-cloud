@@ -16,3 +16,6 @@ spring:
       name: mysql-rw, swagger
 
 
+logging:
+  level:
+    com.xsn.mapper: DEBUG
