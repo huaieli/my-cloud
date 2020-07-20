@@ -11,6 +11,6 @@ public class CacheTest extends BaseTest {
 
     @Test
     public void test() {
-        cacheHandler.test2();
+        cacheHandler.test1();
     }
 }

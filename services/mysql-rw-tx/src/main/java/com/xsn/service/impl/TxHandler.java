@@ -85,36 +85,16 @@ public class TxHandler {
 
     public void noTxnoCatchInner() {
         /**
-         * errorWithTx的事务不会生效
-         * 因为noTxnoCatchInner并没有事务
-         * AOP失效
+         * 外方法没事务，且直接内部方法不然没有事务
+         * 因为事务入口就在外部，此时没事务，则事务
+         * AOP没有生效
          */
-        // noCatchWithTx();
-
-        /**
-         * 都没事务，那肯定是不生效了
-         */
-        // noCatchWithoutTx();
-
-        /**
-         * 本来事务就失效，异常又被处理
-         * 肯定是不生效了
-         */
-        catchWithTx();
-
-        /**
-         * 都没事务，那肯定是不生效了
-         */
-        catchWithoutTx();
-
     }
 
     public void noTxWithCatchInner() {
         try {
             /**
-             * 这个地方是否catch已经不重要了
-             * 因为我们发现该方法没有事务内部调用其他方法
-             * 即便调用有事务的方法，事务也会失效
+             * 同上
              */
         } catch (Exception e) {
 
@@ -124,25 +104,31 @@ public class TxHandler {
     @Transactional
     public void withTxNoCatchInner() {
         /**
-         * 都有事务，必然生效
+         * 外部方法有事务，因为是内部调用，
+         * 因此内部事务并不生效，但是异常
+         * 没有被处理直接抛出，因此事务生效
          */
         // noCatchWithTx();
 
         /**
-         * 内部方法无事务，且未处理异常
-         * 异常抛出外部事务生效
+         * 外部方法有事务，内部方法无事务，
+         * 异常没有被处理直接抛出，因此事
+         * 务生效
          */
         // noCatchWithoutTx();
 
         /**
-         * 内部方法处理了异常
-         * 因此事务失效，数据被插入
+         * 外部方法有事务，因为是内部调用，
+         * 因此内部事务并不生效，内部异常
+         * 被处理，因此外部事务无察觉，事务
+         * 失效
          */
         catchWithTx();
 
         /**
-         * 虽然内部方法被事务切入，但处理了异常
-         * 因此事务失效，数据被插入
+         * 外部方法有事务，内部方法无事务，
+         * 内部异常被处理，因此外部事务无
+         * 察觉，事务失效
          */
         catchWithoutTx();
     }
@@ -151,26 +137,32 @@ public class TxHandler {
     public void withTxwithCatchInner() {
         try {
             /**
-             * 都有事务，但是内部抛出的异常被外部处理
-             * 事务不生效，数据被插入
+             * 外部方法有事务，因为是内部调用，
+             * 因此内部事务并不生效，内部异常
+             * 被抛出，被外部处理，外部事务未
+             * 生效
              */
             noCatchWithTx();
 
             /**
-             * 外部事务切入，但因为内部异常抛出后被外部处理
-             * 事务不生效，数据被插入
+             * 外部方法有事务，内部方法无事务，
+             * 内部异常被抛出，被外部处理，外
+             * 部事务未生效
              */
             // noCatchWithoutTx();
 
             /**
-             * 都有事务都处理了异常
-             * 事务肯定失效
+             * 外部方法有事务，因为是内部调用，
+             * 因此内部事务并不生效，内部异常
+             * 被处理，因此外部事务无察觉，事务
+             * 失效
              */
             // catchWithTx();
 
             /**
-             * 都外部事务切入内部、都处理了异常
-             * 事务肯定失效
+             * 外部方法有事务，内部方法无事务，
+             * 内部异常被处理，因此外部事务无
+             * 察觉，事务失效
              */
             // catchWithoutTx();
 
@@ -181,25 +173,26 @@ public class TxHandler {
 
     public void noTxnoCatchOutter() {
         /**
-         * 内部方法有事务且未捕获，
-         * 外部方法虽然无事务但并没有入侵内部方法
-         * 内部事务依然生效
+         * 我们通过注入txHandler调用内部方法
+         * 内部方法有事务且内部异常未被处理，
+         * 事务生效
          */
         // txHandler.noCatchWithTx();
 
         /**
-         * 都没事务，那肯定是不生效了
+         * 没有事务，那肯定是不生效了
          */
         // txHandler.noCatchWithoutTx();
 
         /**
-         * 内部存在事务，但是异常被捕获
+         * 我们通过注入txHandler调用内部方法
+         * 内部方法有事务但内部异常被捕获处理，
          * 事务不生效
          */
         txHandler.catchWithTx();
 
         /**
-         * 都没事务，那肯定是不生效了
+         * 没有事务，那肯定是不生效了
          */
         // txHandler.catchWithoutTx();
 
@@ -208,9 +201,7 @@ public class TxHandler {
     public void noTxWithCatchOutter() {
         try {
             /**
-             * 与之前的场景一样，外部方法无事务，
-             * 事务是否生效取决于内部方法
-             * 因此外方法是否catch无关紧要
+             * 同上
              */
         } catch (Exception e) {
 
@@ -220,28 +211,30 @@ public class TxHandler {
     @Transactional
     public void withTxNoCatchOutter() {
         /**
-         * 内外都有事务，内部方法抛出异常
-         * 外部也并未处理
-         * 事务生效，被回滚
+         * 内外都有事务，因为使用默认的事务传播
+         * 属性，因此内部事务加入外部事务，内部
+         * 异常未处理，事务生效
          */
         // txHandler.noCatchWithTx();
 
         /**
          * 内部方法无事务，且未处理异常
-         * 异常抛出外部事务生效
+         * 异常抛出外部，外部有事务，
+         * 事务生效
          */
         // txHandler.noCatchWithoutTx();
 
         /**
-         * 内外部都有事务
-         * 内部方法处理了异常
-         * 因此事务失效，数据被插入
+         * 内外都有事务，因为使用默认的事务传播
+         * 属性，因此内部事务加入外部事务，但内
+         * 部异常被捕获处理，事务不生效
          */
         // txHandler.catchWithTx();
 
         /**
-         * 内部没有事务且处理了异常，
-         * 外部事务也失效，数据被插入
+         * 内部方法无事务，外部有事务，
+         * 但内部异常被捕获处理，外部
+         * 事务无感知，不生效
          */
         txHandler.catchWithoutTx();
     }
@@ -250,9 +243,10 @@ public class TxHandler {
     public void withTxwithCatchOutter() {
         try {
             /**
-             * 都有事务，但是内部抛出异常将事务标记为回滚
-             * 外部处理掉抛出的异常后要提交事务
-             * 事务生效被回滚并抛出如下异常
+             * 内外都有事务，因为使用默认的事务传播属性，
+             * 因此内部事务加入外部事务。内部抛出异常将事务标记为回滚
+             * 外部处理掉抛出的异常后要提交事务产生冲突
+             * 事务被回滚并抛出如下异常
              * org.springframework.transaction.UnexpectedRollbackException:
              * Transaction rolled back because it has been marked as rollback-only
              * 如何处理该问题
@@ -261,25 +255,26 @@ public class TxHandler {
              * 3)外部方法捕获异常后手动回滚
              * TransactionAspectSupport.currentTransactionStatus().setRollbackOnly()
              */
-            txHandler.noCatchWithTx();
+            // txHandler.noCatchWithTx();
 
             /**
-             * 内部方法无事务，且此时外部方法不会切入内部方法
-             * 内部方法抛出异常被外部处理
-             * 事务失效
+             * 内部方法无事务，外部有事务，
+             * 内部异常被抛出，外部捕获异常
+             * 并处理，外部事务不生效
              */
-            // txHandler.noCatchWithoutTx();
+            txHandler.noCatchWithoutTx();
 
             /**
-             * 都有事务，但是内部方法处理了异常，没有标记事务为回滚
-             * 因此事务失效，数据被插入
+             * 内外都有事务，因为使用默认的事务传播
+             * 属性，因此内部事务加入外部事务，内部
+             * 异常被捕获处理，外部事务无感知，不生效
              */
             // txHandler.catchWithTx();
 
             /**
-             * 内部没有事务，且异常被捕获
-             * 因此虽然外部有事务，但是事务被正常提交
-             * 数据被插入
+             * 内部方法无事务，外部有事务，
+             * 内部异常被捕获处理，外部
+             * 事务无感知，不生效
              */
             // txHandler.catchWithoutTx();
 

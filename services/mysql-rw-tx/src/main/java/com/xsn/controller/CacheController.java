@@ -23,7 +23,7 @@ public class CacheController {
     @ApiOperation(value = "测试缓存")
     public void test () {
 
-        /*cacheHandler.test1();
+        cacheHandler.test1();
 
         log.info("=============================");
 
@@ -37,7 +37,7 @@ public class CacheController {
 
         cacheHandler.test4();
 
-        log.info("=============================");*/
+        log.info("=============================");
 
         cacheHandler.test5();
 

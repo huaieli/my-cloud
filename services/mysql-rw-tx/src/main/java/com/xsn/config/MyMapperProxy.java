@@ -6,7 +6,9 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
-public class MyMapperProxy implements InvocationHandler {
+public class MyMapperProxy<T> implements InvocationHandler {
+
+    T t;
 
     public <T> T newInstance(Class<T> clazz) {
 
@@ -24,6 +26,10 @@ public class MyMapperProxy implements InvocationHandler {
 
             return method.invoke(this, args);
         }
+
+        // pre t.action
+        // t.action
+        // post t.action
 
         return new TestUser(1, "dd", 1);
     }

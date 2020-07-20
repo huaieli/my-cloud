@@ -1,7 +1,9 @@
 package com.xsn.config;
 
+import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -34,5 +36,13 @@ public class SqlSessionFactoryConfig {
     @Bean
     public DataSourceTransactionManager dataSourceTransactionManager() {
         return new DataSourceTransactionManager(targetDataSource);
+    }
+
+    @Bean
+    public SqlSessionTemplate sqlSessionTemplate(
+            @Qualifier("sqlSessionFactory") SqlSessionFactory sqlSessionFactory
+    ) throws Exception {
+
+        return new SqlSessionTemplate(sqlSessionFactory, ExecutorType.SIMPLE);
     }
 }

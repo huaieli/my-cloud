@@ -13,7 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 public class ProxyTest {
 
     public static void main(String[] args) throws InvocationTargetException, IllegalAccessException {
-        MyMapperProxy myMapperProxy = new MyMapperProxy();
+        MyMapperProxy<TestUserMapper> myMapperProxy = new MyMapperProxy();
 
         TestUserMapper testUserMapper = myMapperProxy.newInstance(TestUserMapper.class);
         TestUser testUser = testUserMapper.selectByPrimaryKey(null);

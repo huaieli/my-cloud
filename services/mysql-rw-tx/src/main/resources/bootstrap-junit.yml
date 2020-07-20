@@ -6,20 +6,18 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://10.18.101.197:31021/copy_test?characterEncoding=utf-8
+    url: jdbc:mysql://192.168.137.101:3306/copy_test?characterEncoding=utf-8
     username: test
     password: test
     slave1:
-      url: jdbc:mysql://10.18.101.197:31022/copy_test?characterEncoding=utf-8
+      url: jdbc:mysql://192.168.137.101:3307/copy_test?characterEncoding=utf-8
       username: test
       password: test
     slave2:
-      url: jdbc:mysql://10.18.101.197:31023/copy_test?characterEncoding=utf-8
+      url: jdbc:mysql://192.168.137.101:3307/copy_test?characterEncoding=utf-8
       username: test
       password: test
 
 eureka:
   client:
     enabled: false
-
-

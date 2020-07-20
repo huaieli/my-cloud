@@ -27,12 +27,9 @@
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.xsn.entity.TestUser">
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id"  parameterType="com.xsn.entity.TestUser" >
     insert into test_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
       <if test="name != null">
         name,
       </if>
@@ -41,9 +38,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
