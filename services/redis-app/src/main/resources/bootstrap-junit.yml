@@ -1,0 +1,35 @@
+eureka:
+  client:
+    enabled: false
+
+spring:
+  cloud:
+    config:
+      enabled: false
+
+  redis:
+    host: 192.168.137.101
+    port: 6379
+    database: 0
+    password:
+    timeout: 5000
+    jedis:
+      pool:
+        max-idle: 500
+        min-idle: 50
+        max-active: 2000
+        max-wait: 1000
+
+com:
+  xsn:
+    swagger:
+      scan: com.xsn.controller
+      title: swagger
+      description: swagger
+      termsOfServiceUrl: http://xsn.com
+      version: V1.0
+
+
+
+
+

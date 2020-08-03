@@ -15,7 +15,9 @@ public class TxServiceTest extends BaseTest {
     private TxHandler txHandler;
 
     @Test
-    public void test1() {
-        txHandler.withTxwithCatchInner();
+    public void test() {
+
+        txHandler.outter();
     }
+
 }

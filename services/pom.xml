@@ -20,6 +20,8 @@
         <module>rabbitmq-provider</module>
         <module>rabbitmq-consumer</module>
         <module>redis-app</module>
+        <module>aop-test</module>
+        <module>test-all</module>
     </modules>
 
     <properties>

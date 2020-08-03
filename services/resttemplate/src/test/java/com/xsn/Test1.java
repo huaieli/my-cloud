@@ -10,6 +10,7 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class Test1 {
+
     @Autowired
     private RestTemplate restTemplate;
 
