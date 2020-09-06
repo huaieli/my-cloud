@@ -16,3 +16,4 @@ services/rabbitmq-provider/target/
 services/redis-app/target/
 services/mysql-rw-tx/target/
 services/test-all/target/
+services/mybatis-plus/target/
