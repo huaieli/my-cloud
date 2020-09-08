@@ -1,8 +1,10 @@
 package com.xsn;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -133,7 +135,7 @@ public class TestUserService {
         // entity(new User) 定义 where，paramEntity(u7) 定义 set
         Assert.assertTrue(
                 userService.update(u7,
-                        new UpdateWrapper<>(new User("1", null, null))
+                        new UpdateWrapper<>(new User("u2", null, null))
                 )
         );
     }
@@ -198,15 +200,41 @@ public class TestUserService {
     }
 
     @Test
-    public void testPage() {
-        Page page = new Page<User>(0, 2);
+    public void testCount() {
+        Assert.assertEquals(3,
+                userService.count(new QueryWrapper<>(new User("1", null, null))));
+    }
 
-        Page page1 = userService.page(page);
-        System.out.println(page1.getCurrent()); // 1
-        System.out.println(page.getMaxLimit());// null
-        System.out.println(page1.getSize()); // 2
-        System.out.println(page1.getTotal()); // 0
-        System.out.println(page1.getPages()); // 0
-        page1.getRecords().forEach(System.out::println);
+    @Test
+    public void testChain() {
+        // 普通链式查询
+        userService.query()
+                .eq("name", "1")
+                .select("id")
+                .list()
+                .forEach(System.out::println);
+
+        // lambda 链式查询
+        userService.lambdaQuery()
+                .eq(User::getName, "1")
+                .select(User::getId)
+                .list()
+                .forEach(System.out::println);
+
+        // 普通链式更新
+        userService.update()
+                .eq("name", "1")
+                .update(new User("2", 2, "2"));
+
+        // 普通链式更新
+        userService.update()
+                .eq("name", "2")
+                .setSql("name = 3")
+                .update();
+
+        // lambda 链式更新
+        userService.lambdaUpdate()
+                .eq(User::getName, "3")
+                .remove();
     }
 }
